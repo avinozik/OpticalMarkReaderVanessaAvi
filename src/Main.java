@@ -14,8 +14,8 @@ public class Main {
 		System.out.println("Scoring all pages...");
 		scoreAllPages(images);
 
-		System.out.println("Complete!");
 		
+		System.out.println("Complete!");
 		// Optional:  add a saveResults() method to save answers to a csv file
 	}
 
@@ -30,14 +30,16 @@ public class Main {
 		ArrayList<AnswerSheet> scoredSheets = new ArrayList<AnswerSheet>();
 
 		// Score the first page as the key
-		AnswerSheet key = markReader.processPageImage(images.get(0));
+		AnswerSheet key = markReader.processPageImage(images.get(0), 125, 464, 30*25, 185*4);
 
-		for (int i = 1; i < images.size(); i++) {
+		/*for (int i = 1; i < images.size(); i++) {
 			PImage image = images.get(i);
 
-			AnswerSheet answers = markReader.processPageImage(image);
+			AnswerSheet answers = markReader.processPageImage(image, 125, 464, 30, 185);
 
 			// do something with answers
-		}
+		}*/
+		
+		key.printAnswers();
 	}
 }
