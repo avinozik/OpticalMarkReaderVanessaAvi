@@ -20,9 +20,9 @@ public class OpticalMarkReader {
 		// save the students answers into an "AnswerSheet"
 		image.filter(PImage.GRAY);
 		AnswerSheet answerSheet = new AnswerSheet();
-		for (int col = startX; col < width; col += 300) {
-			for (int row = startY-9; row < height; row += 48) {
-				int answer = determineBubble(row, col, 185, 48, 5, image);
+		for (int x = 120; x < (285 * 4); x += 285) {
+			for (int y = 460; y < 120 + (25 * 38); y += 38) {//[x,y] is the top left corner of each box
+				int answer = determineBubble(x, y, 185, 38, 5, image);
 				answerSheet.addAnswer(answer);
 			}
 		}
@@ -32,13 +32,18 @@ public class OpticalMarkReader {
 	public int getPixelAt(int row, int col, PImage image) {
 		image.loadPixels();
 		int index = row * image.width + col;
+		//System.out.println(image.pixels[index] & 255);//val of pixel
 		return image.pixels[index] & 255;
 	}
 
+	
+	/*
+	 * returns answer for 1 question at r,c for a box width,height for numbubbles
+	 */
 	public int determineBubble(int r, int c, int width, int height, int numBubbles, PImage image) {
 		int boxWidth = width / numBubbles, max = 255, maxBubble = 0;
 		for (int i = 0; i < numBubbles; i++) {
-			int value = getSumValue(r, c + i * boxWidth, width, height, image);
+			int value = getSumValue(r, c + i * boxWidth, width, height, image)/(width*height);
 			if (value < max) {
 				max = value;
 				maxBubble = i;
@@ -47,29 +52,12 @@ public class OpticalMarkReader {
 		return maxBubble;
 	}
 
-	public int[][] getAnswerRegion(int r, int c, int[][] pixels) {
-		int[][] output = new int[30][185];
-		int outputRow = 0;
-		int outputCol = 0;
-		for (int row = r; row < r + 30; row++) {
-			for (int col = c; col < c + 185; c++) {
-				output[outputRow][outputCol] = pixels[row][col];
-				outputCol++;
-				if (outputCol == output[0].length)
-					outputCol = 0;
-			}
-			outputRow++;
-			if (outputRow == output.length)
-				outputRow = 0;
-		}
-		return output;
-	}
 
 	public int getSumValue(int r, int c, int width, int height, PImage image) {
 		int sum = 0;
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				sum = +getPixelAt(r + i, c + j, image);
+				sum += getPixelAt(r + i, c + j, image);
 			}
 		}
 		return sum;

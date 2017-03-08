@@ -30,15 +30,25 @@ public class Main {
 		ArrayList<AnswerSheet> scoredSheets = new ArrayList<AnswerSheet>();
 
 		// Score the first page as the key
-		AnswerSheet key = markReader.processPageImage(images.get(0), 125, 464, 30*25, 185*4);
+		AnswerSheet key = markReader.processPageImage(images.get(0), 120, 460, 285*4, 120 + (25 * 38));
 
-		/*for (int i = 1; i < images.size(); i++) {
+		for (int i = 1; i < images.size(); i++) {
 			PImage image = images.get(i);
 
 			AnswerSheet answers = markReader.processPageImage(image, 125, 464, 30, 185);
 
-			// do something with answers
-		}*/
+
+			for (int index = 0; index < answers.getSize(); index++) {
+				if (key.getAnswerAtIndex(index).equals(answers.getAnswerAtIndex(index))) {
+					answers.addCorrectAnswer();
+				} else {
+					answers.addIncorrectAnswer();
+				}
+			}
+			answers.calculatePercentCorrect();
+			answers.calculatePercentIncorrect();
+			
+		}
 		
 		key.printAnswers();
 	}

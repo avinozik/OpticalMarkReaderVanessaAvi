@@ -31,14 +31,23 @@ public class VisualTester extends PApplet {
 		background(255);
 		if (images.size() > 0) {
 			current_image = images.get(currentImageIndex);
-			image(current_image, 0, 0);			// display image i
-			rect(100, 100, 50, 50);
-			fill(0);
+			image(current_image, 0, 0); // display image i
+			// rect(120, 460, 185, 38);
+			// rect(120, 498, 185, 38);
 			text(mouseX + " " + mouseY, 30, 30);
+			for (int x = 120; x < (285 * 4); x += 285) {
+				for (int y = 460; y < 120 + (25 * 38); y += 38) {
+					rect(x, y, 185, 38);
+					noFill();
+				}
+			}
+
 		}
 	}
 
 	public void mouseReleased() {
-		currentImageIndex = (currentImageIndex + 1) % images.size();			// increment current image
+		currentImageIndex = (currentImageIndex + 1) % images.size(); // increment
+																		// current
+																		// image
 	}
 }
