@@ -52,6 +52,7 @@ public class OpticalMarkReader {
 		return maxBubble;
 	}
 
+	
 
 	public int getSumValue(int r, int c, int width, int height, PImage image) {
 		int sum = 0;
