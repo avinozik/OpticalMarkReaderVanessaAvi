@@ -33,7 +33,7 @@ public class VisualTester extends PApplet {
 			current_image = images.get(currentImageIndex);
 			image(current_image, 0, 0); // display image i
 			// rect(120, 460, 185, 38);
-			// rect(120, 498, 185, 38);
+			rect(120+(37*2), 460, 37, 38);
 			text(mouseX + " " + mouseY, 30, 30);
 			for (int x = 120; x < (285 * 4); x += 285) {
 				for (int y = 460; y < 120 + (25 * 38); y += 38) {

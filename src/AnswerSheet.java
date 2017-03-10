@@ -69,7 +69,7 @@ public class AnswerSheet {
 	public void printAnswers() {
 		for (int i = 0; i < answers.size(); i++) {
 			String answer = answers.get(i);
-			System.out.println("The answer is: " + answer + ", " + " The index is : " + i);
+			System.out.println("The answer is: " + answer + ", " + " The question is : " + (i +1));
 		}
 		System.out.println("size of answer list: " + answers.size());
 		System.out.println("finished grading");

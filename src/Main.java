@@ -29,7 +29,7 @@ public class Main {
 	 */
 	private static void scoreAllPages(ArrayList<PImage> images) {
 		ArrayList<AnswerSheet> scoredSheets = new ArrayList<AnswerSheet>();
-
+		
 		String dataOne = "";
 		String dataTwo = "";
 		double[] arr = new double[100];//inside each index, representing 1 question, is the # of incorrect answers
@@ -38,12 +38,13 @@ public class Main {
 
 
 		// Score the first page as the key
-		AnswerSheet key = markReader.processPageImage(images.get(0), 120, 460, 285 * 4, 120 + (25 * 38));
+		AnswerSheet key = markReader.processPageImage(images.get(0));
+		key.printAnswers();
 
 		for (int i = 0; i < images.size(); i++) {
 			PImage image = images.get(i);
 
-			AnswerSheet answers = markReader.processPageImage(image, 125, 464, 30, 185);
+			AnswerSheet answers = markReader.processPageImage(image);
 
 			for (int index = 0; index < answers.getSize(); index++) {
 				if (key.getAnswerAtIndex(index).equals(answers.getAnswerAtIndex(index))) {
@@ -70,11 +71,14 @@ public class Main {
 			}
 
 		}
-		String filepath = "C:/Users/Avi/Documents/OpticalMarkReaderCSV/file.cvs";
+		String filepath = "E:/newfile";
 		FileIO.writeDataToFile(filepath, dataOne);
 		
-		String secondFilePath = "C:/Users/Avi/Documents/OpticalMarkReaderCSV/secondFile.cvs";
-		FileIO.writeDataToFile(secondFilePath, dataTwo);
+		//String secondFilePath = "C:/Users/Avi/Documents/OpticalMarkReaderCSV/secondFile";
+		//FileIO.writeDataToFile(secondFilePath, dataTwo);
+		
+		String s = FileIO.readFileAsString(filepath);
+		System.out.print(s);
 		
 	}
 }

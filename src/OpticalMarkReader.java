@@ -13,7 +13,7 @@ public class OpticalMarkReader {
 	 * @param image
 	 * @return
 	 */
-	public AnswerSheet processPageImage(PImage image, int startX, int startY, int width, int height) {
+	public AnswerSheet processPageImage(PImage image) {
 		// start at a certain x, y
 		// loop through each questions' answers individually, determine answer
 		// compare the answer to the correct answer, do whatever supposed to do
@@ -32,7 +32,7 @@ public class OpticalMarkReader {
 	public int getPixelAt(int row, int col, PImage image) {
 		image.loadPixels();
 		int index = row * image.width + col;
-		//System.out.println(image.pixels[index] & 255);//val of pixel
+		//System.out.println(image.pixels[index]);//val of pixel
 		return image.pixels[index] & 255;
 	}
 
@@ -41,9 +41,9 @@ public class OpticalMarkReader {
 	 * returns answer for 1 question at r,c for a box width,height for numbubbles
 	 */
 	public int determineBubble(int r, int c, int width, int height, int numBubbles, PImage image) {
-		int boxWidth = width / numBubbles, max = 255, maxBubble = 0;
+		int boxWidth = width / numBubbles, max = Integer.MAX_VALUE, maxBubble = 0;
 		for (int i = 0; i < numBubbles; i++) {
-			int value = getSumValue(r, c + i * boxWidth, width, height, image)/(width*height);
+			int value = getSumValue(r, c + i * boxWidth, width, height, image);
 			if (value < max) {
 				max = value;
 				maxBubble = i;
